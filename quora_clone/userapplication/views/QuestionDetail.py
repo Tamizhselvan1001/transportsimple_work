@@ -35,7 +35,6 @@ def question_detail(request, question_id):
                 comment.answer = answer
                 comment.save()
                 return redirect('question_detail', question_id=question_id)
-
     return render(request, 'question_detail.html', {
         'question': question,
         'answers': answers,
