@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="mb-4">
+    <a href="{% url 'ask' %}" class="btn btn-danger">
+        <i class="fas fa-plus-circle"></i> Ask a Question
+    </a>
+</div>
+
+{% for question in questions %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">{{ question.title }}</h5>
+        <p class="card-text">{{ question.body|linebreaksbr }}</p>
+
+        {% if question.image %}
+            <img src="{{ question.image.url }}" alt="Question Image" class="img-fluid rounded mb-2">
+        {% endif %}
+
+        <div class="d-flex justify-content-between">
+            <small class="text-muted">
+                Asked by <strong>{{ question.user.username }}</strong> • {{ question.created_at|timesince }} ago
+            </small>
+            <div>
+                <span class="badge bg-primary"><i class="fas fa-eye"></i> {{ question.views_count }}</span>
+                <span class="badge bg-success"><i class="fas fa-retweet"></i> {{ question.repost_count }}</span>
+                <a href="{% url 'question_detail' question.id %}" class="btn btn-sm btn-outline-dark">
+                    <i class="fas fa-comments"></i> Answer
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
