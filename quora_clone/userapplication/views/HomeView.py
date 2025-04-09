@@ -5,5 +5,5 @@ from..models.QuestionModel import Question
 
 @login_required
 def home(request):
-    questions = Question.objects.all().order_by('-created_at')
+    questions = Question.objects.all().order_by('-created_at').filter(is_active=True)
     return render(request, 'home.html', {'questions': questions})
